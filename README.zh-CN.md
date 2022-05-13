@@ -1,25 +1,25 @@
 # vite-plugin-resolve
 
-Custom resolve module content
+自定义加载模块内容
 
 [![NPM version](https://img.shields.io/npm/v/vite-plugin-resolve.svg)](https://npmjs.org/package/vite-plugin-resolve)
 [![NPM Downloads](https://img.shields.io/npm/dm/vite-plugin-resolve.svg?style=flat)](https://npmjs.org/package/vite-plugin-resolve)
 [![awesome-vite](https://awesome.re/badge.svg)](https://github.com/vitejs/awesome-vite)
 
-**English | [简体中文](https://github.com/caoxiemeihao/vite-plugins/blob/main/packages/resolve/README.zh-CN.md)**
+**[English](https://github.com/caoxiemeihao/vite-plugins/tree/main/packages/resolve#readme) | 简体中文**
 
-🤔 You can think of this as the implementation of the official tutorial 👉 [Virtual Modules Convention](https://vitejs.dev/guide/api-plugin.html#virtual-modules-convention)
+🤔 你可以认为它是官方教程的一个实现 👉 [Virtual Modules Convention](https://vitejs.dev/guide/api-plugin.html#virtual-modules-convention)
 ✅ Browser, Node.js, Electron  
 
-## Install
+## 安装
 
 ```bash
 npm i vite-plugin-resolve -D
 ```
 
-## Usage
+## 使用
 
-You can load any code snippet you want
+你可以加载任何你想要的代码段
 
 ```ts
 import resolve from 'vite-plugin-resolve'
@@ -33,18 +33,18 @@ export default {
 }
 ```
 
-In you App
+你的逻辑代码
 
 ```ts
 import Vue from 'vue'
 ```
 
-This like Vite external plugin  
-You you can see more about external 👉 [vite-plugin-fast-external](https://github.com/caoxiemeihao/vite-plugins/tree/main/packages/fast-external) 
+这个场景就是 external  
+你可以看看关于 external 👉 [vite-plugin-fast-external](https://github.com/caoxiemeihao/vite-plugins/tree/main/packages/fast-external) 
 
-**Load a file**
+#### 加载文件
 
-Support nested module id, support return Promise
+支持嵌套模块命名，支持返回 Promise
 
 ```ts
 import fs from 'fs'
@@ -54,9 +54,9 @@ resolve({
 })
 ```
 
-**Electron**
+#### Electron
 
-Resolve Electron Renderer-process
+加载 Electron 渲染进程
 
 ```ts
 resolve({
@@ -65,12 +65,12 @@ resolve({
     export { electron as default }
     const export shell = electron.shell;
     const export ipcRenderer = electron.ipcRenderer;
-    // ...others
+    // ...其他成员
   `,
 })
 ```
 
-In you App(Renderer-process)
+在渲染进程中使用
 
 ```ts
 import { shell, ipcRenderer } from 'electron'
@@ -78,7 +78,7 @@ import { shell, ipcRenderer } from 'electron'
 
 ## API
 
-`resolve(entries)`
+#### resolve(entries)
 
 **entries**
 
@@ -90,11 +90,11 @@ import { shell, ipcRenderer } from 'electron'
 }
 ```
 
-You can see the return value type definition here [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)
+详细的返回值类型看这里 [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)
 
-## What's different from the official Demo?
+## 这与官方的 Demo 有何异同？
 
-There are two main differences
+主要有两点不一样
 
-1. Bypass the builtin `vite:resolve` plugin
-2. Reasonably avoid [Pre-Bundling](https://vitejs.dev/guide/dep-pre-bundling.html)
+1. 绕过内置的 `vite:resolve` 插件
+2. 合理的避开 [Pre-Bundling](https://vitejs.dev/guide/dep-pre-bundling.html)
