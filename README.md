@@ -110,7 +110,10 @@ import {
 export default {
   plugins: [
     resolve({
+      // e.g.
+      // external-name: lib-name.version
       vue: vue.v3,
+      react: react.v18,
     }),
   ]
 }
