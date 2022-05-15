@@ -9,6 +9,8 @@
 **[English](https://github.com/vite-plugin/vite-plugin-resolve#readme) | 简体中文**
 
 🤔 你可以认为它是官方教程的一个实现 👉 [Virtual Modules Convention](https://vitejs.dev/guide/api-plugin.html#virtual-modules-convention)  
+📦 **开箱即用**, 内置 Vue, React, Antd, Element 等等 
+🌱 支持自定义 external 代码段  
 ✅ Browser, Node.js, Electron  
 
 ## 安装
@@ -27,7 +29,21 @@ import resolve from 'vite-plugin-resolve'
 export default {
   plugins: [
     resolve({
-      vue: `const vue = window.Vue; export { vue as default }`,
+      // Browser
+      vue: `
+        const vue = window.Vue;
+        export { vue as default }
+        export const version = vue.version;
+      `,
+      // Node.js, Electron
+      electron: `
+        const { ipcRenderer, shell } = require('electron');
+        export {
+          ipcRenderer,
+          shell,
+        }
+        // ...others
+      `,
     }),
   ]
 }
@@ -36,13 +52,11 @@ export default {
 你的逻辑代码
 
 ```ts
-import Vue from 'vue'
+import Vue, { version } from 'vue'
+import { ipcRenderer, shell } from 'electron'
 ```
 
-这个场景就是 external  
-你可以看看关于 external 👉 [vite-plugin-fast-external](https://github.com/caoxiemeihao/vite-plugins/tree/main/packages/fast-external) 
-
-#### 加载文件
+**加载文件**
 
 支持嵌套模块命名，支持返回 Promise
 
@@ -52,28 +66,6 @@ import fs from 'fs'
 resolve({
   'path/filename': () => fs.promise.readFile('path', 'utf-8'),
 })
-```
-
-#### Electron
-
-加载 Electron 渲染进程
-
-```ts
-resolve({
-  electron: `
-    const electron = require("electron");
-    export { electron as default }
-    const export shell = electron.shell;
-    const export ipcRenderer = electron.ipcRenderer;
-    // ...其他成员
-  `,
-})
-```
-
-在渲染进程中使用
-
-```ts
-import { shell, ipcRenderer } from 'electron'
 ```
 
 ## API
@@ -91,6 +83,69 @@ import { shell, ipcRenderer } from 'electron'
 ```
 
 详细的返回值类型看这里 [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)
+
+## 使用内置模块
+
+这个场景就是 Vite external plugin
+
+```js
+import resolve from 'vite-plugin-resolve'
+import {
+  antd_vue,
+  antd,
+  element_plus,
+  element_ui,
+  pinia,
+  react_dom,
+  react_router_dom,
+  react_router,
+  react,
+  redux,
+  vue_composition_api,
+  vue_router,
+  vue,
+  vuex,
+} from 'vite-plugin-resolve/presets'
+export default {
+  plugins: [
+    resolve({
+      vue: vue.v3,
+    }),
+  ]
+}
+// 使用
+import { h, ref, reactive, watch } from 'vue'
+```
+
+**Advance**, you can use `lib2esm()` to customize some things
+
+```js
+import resolve from 'vite-plugin-resolve'
+import { lib2esm } from 'vite-plugin-resolve/presets'
+export default {
+  plugins: [
+    resolve({
+      // 用 lodash 举个 🌰
+      lodash: lib2esm(
+        // lodash 全局名称
+        '_',
+        // export memebers
+        [
+          'chunk',
+          'curry',
+          'debounce',
+          'throttle',
+        ],
+      ),
+    }),
+  ]
+}
+// 使用
+import { chunk, curry, debounce, throttle } from 'lodash'
+```
+
+**在 Electron 中使用** 👉 [electron-vite-vue](https://github.com/electron-vite/electron-vite-vue/blob/main/packages/renderer/vite.config.ts)
+
 
 ## 这与官方的 Demo 有何异同？
 
