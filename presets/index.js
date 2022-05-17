@@ -21,13 +21,12 @@ const vuex_v3 = require('./vuex-v3');
 const vuex_v4 = require('./vuex-v4');
 
 /**
-  * @type {import('.').Lib2esm} 
+ * @type {import('.').Lib2esm} 
  */
  exports.lib2esm = function (name, ...args) {
   if (!args.length) {
     return exports.lib2esm(name, [], {});
   }
-
   if (args.length === 1) {
     return Object.prototype.toString.call(args[0]) === '[object Object]'
       // lib2esm(name, options)
@@ -101,7 +100,7 @@ ${importTpl}
 const _D_ = _M_.default || _M_;
 export { _D_ as default }
 ${exportMembers}
-  `.trim();
+`.trim();
 
   return () => externalTpl;
 };
@@ -109,7 +108,7 @@ ${exportMembers}
 exports.antd_vue = {
   v1: this.lib2esm(antd_vue_v1.name, antd_vue_v1.members),
   v3: this.lib2esm(antd_vue_v3.name, antd_vue_v3.members),
-}
+};
 
 exports.antd = {
   v4: this.lib2esm(antd_v4.name, antd_v4.members),
