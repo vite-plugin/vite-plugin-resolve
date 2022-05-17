@@ -21,7 +21,7 @@ npm i vite-plugin-resolve -D
 
 ## 使用
 
-你可以加载任何你想要的代码段
+你可以加载任何你想要的代码段 **（ESM 格式）**
 
 ```ts
 import resolve from 'vite-plugin-resolve'
@@ -32,8 +32,11 @@ export default {
       // Browser
       vue: `
         const vue = window.Vue;
-        export { vue as default }
-        export const version = vue.version;
+        const version = vue.version;
+        export {
+          vue as default,
+          version,
+        }
       `,
       // Node.js, Electron
       electron: `
@@ -42,86 +45,20 @@ export default {
           ipcRenderer,
           shell,
         }
-        // ...others
       `,
     }),
   ]
 }
-```
 
-你的逻辑代码
-
-```ts
+// 你的逻辑代码
 import Vue, { version } from 'vue'
 import { ipcRenderer, shell } from 'electron'
 ```
 
-**加载文件**
-
-支持嵌套模块命名，支持返回 Promise
-
-```ts
-import fs from 'fs'
-
-resolve({
-  'path/filename': () => fs.promise.readFile('path', 'utf-8'),
-})
-```
-
-## API
-
-#### resolve(entries)
-
-**entries**
-
-```ts
-{
-  [moduleId: string]:
-    | ReturnType<Plugin['load']>
-    | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
-}
-```
-
-详细的返回值类型看这里 [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)
-
-## 使用内置模块
-
-这个场景就是 Vite external plugin
+你可以很容易地使用' lib2esm() '来定制一些内容
 
 ```js
-import resolve from 'vite-plugin-resolve'
-import {
-  antd_vue,
-  antd,
-  element_plus,
-  element_ui,
-  pinia,
-  react_dom,
-  react_router_dom,
-  react_router,
-  react,
-  redux,
-  vue_composition_api,
-  vue_router,
-  vue,
-  vuex,
-} from 'vite-plugin-resolve/presets'
-export default {
-  plugins: [
-    resolve({
-      vue: vue.v3,
-    }),
-  ]
-}
-// 使用
-import { h, ref, reactive, watch } from 'vue'
-```
-
-**Advance**, you can use `lib2esm()` to customize some things
-
-```js
-import resolve from 'vite-plugin-resolve'
-import { lib2esm } from 'vite-plugin-resolve/presets'
+import resolve, { lib2esm } from 'vite-plugin-resolve'
 export default {
   plugins: [
     resolve({
@@ -144,7 +81,86 @@ export default {
 import { chunk, curry, debounce, throttle } from 'lodash'
 ```
 
-**在 Electron 中使用** 👉 [electron-vite-vue](https://github.com/electron-vite/electron-vite-vue/blob/main/packages/renderer/vite.config.ts)
+** 在 Electron 中使用 ** 👉 [electron-vite-vue](https://github.com/electron-vite/electron-vite-vue/blob/main/packages/renderer/vite.config.ts)
+
+## 内置模块
+
+这个场景就是 Vite external plugin
+
+```js
+import resolve from 'vite-plugin-resolve'
+import {
+  antd_vue,
+  antd,
+  element_plus,
+  element_ui,
+  pinia,
+  react_dom,
+  react_router_dom,
+  react_router,
+  react,
+  redux,
+  vue_composition_api,
+  vue_router,
+  vue,
+  vuex,
+} from 'vite-plugin-resolve/presets'
+
+export default {
+  plugins: [
+    resolve({
+      // e.g.
+      // external-lib: lib-name.version
+      vue: vue.v3,
+      react: react.v18,
+    }),
+  ]
+}
+
+// 使用
+import { h, ref, reactive, watch } from 'vue'
+import { useState, useEffect } from 'react'
+```
+
+## API
+
+`resolve(entries)`
+
+```ts
+type entries = {
+  [moduleId: string]:
+    | ReturnType<Plugin['load']>
+    | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
+}
+```
+
+*你可以在此处看到返回值类型定义 [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)*
+
+`lib2esm(name[,members[,options]])`
+
+```ts
+export interface Lib2esmOptions {
+  /**
+   * 生成代码段格式
+   * 
+   * 🌰
+   * ```js
+   * const _M_ = require('lib') // cjs
+   * const _M_ = window['lib'] // iife
+   * ```
+   * 
+   * @default "iife"
+   */
+  format?: 'cjs' | 'iife',
+}
+export interface Lib2esm {
+  (name: string): string
+  (name: string, options: Lib2esmOptions): string
+  (name: string, members: string[]): string
+  (name: string, members: string[], options: Lib2esmOptions): string
+}
+export declare const lib2esm: Lib2esm
+```
 
 
 ## 这与官方的 Demo 有何异同？
