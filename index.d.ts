@@ -10,3 +10,5 @@ export interface VitePluginResolve {
       | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
   }): Plugin[];
 }
+
+export const lib2esm: import('./presets').Lib2esm;
