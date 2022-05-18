@@ -42,3 +42,5 @@ module.exports = function resolve(resolves) {
     },
   ];
 };
+
+module.exports.lib2esm = require('./presets').lib2esm;

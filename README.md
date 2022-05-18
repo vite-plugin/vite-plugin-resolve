@@ -21,7 +21,7 @@ npm i vite-plugin-resolve -D
 
 ## Usage
 
-You can load any code snippet you want
+You can load any code snippets you want **(ESM format)**
 
 ```ts
 import resolve from 'vite-plugin-resolve'
@@ -31,9 +31,12 @@ export default {
     resolve({
       // Browser
       vue: `
-        const vue = window.Vue; 
-        export { vue as default };
-        export const version = vue.version;
+        const vue = window.Vue;
+        const version = vue.version;
+        export {
+          vue as default,
+          version,
+        }
       `,
       // Node.js, Electron
       electron: `
@@ -42,49 +45,46 @@ export default {
           ipcRenderer,
           shell,
         }
-        // ...others
       `,
     }),
   ]
 }
-```
 
-In you App
-
-```ts
+// Use in your app
 import Vue, { version } from 'vue'
 import { ipcRenderer, shell } from 'electron'
 ```
 
-**Load a file**
+You can easy to use `lib2esm()` to customize some things
 
-Support nested module id, support return Promise
-
-```ts
-import fs from 'fs'
-
-resolve({
-  'path/filename': () => fs.promise.readFile('path', 'utf-8'),
-})
-```
-
-## API
-
-`resolve(entries)`
-
-**entries**
-
-```ts
-{
-  [moduleId: string]:
-    | ReturnType<Plugin['load']>
-    | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
+```js
+import resolve, { lib2esm } from 'vite-plugin-resolve'
+export default {
+  plugins: [
+    resolve({
+      // Let's use lodash as an example
+      lodash: lib2esm(
+        // lodash iife name
+        '_',
+        // export memebers
+        [
+          'chunk',
+          'curry',
+          'debounce',
+          'throttle',
+        ],
+      ),
+    }),
+  ]
 }
+
+// Use in your app
+import { chunk, curry, debounce, throttle } from 'lodash'
 ```
 
-You can see the return value type definition here [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)
+**Use in Electron** 👉 [electron-vite-vue](https://github.com/electron-vite/electron-vite-vue/blob/main/packages/renderer/vite.config.ts)
 
-## Use builtin modules
+## Builtin modules
 
 This like Vite external plugin
 
@@ -111,7 +111,7 @@ export default {
   plugins: [
     resolve({
       // e.g.
-      // external-name: lib-name.version
+      // external-lib: lib-name.version
       vue: vue.v3,
       react: react.v18,
     }),
@@ -120,37 +120,48 @@ export default {
 
 // Use in your app
 import { h, ref, reactive, watch } from 'vue'
+import { useState, useEffect } from 'react'
 ```
 
-**Advance**, you can use `lib2esm()` to customize some things
+## API
 
-```js
-import resolve from 'vite-plugin-resolve'
-import { lib2esm } from 'vite-plugin-resolve/presets'
-export default {
-  plugins: [
-    resolve({
-      // Let's use lodash as an example
-      lodash: lib2esm(
-        // lodash iife name
-        '_',
-        // export memebers
-        [
-          'chunk',
-          'curry',
-          'debounce',
-          'throttle',
-        ],
-      ),
-    }),
-  ]
+`resolve(entries)`
+
+```ts
+type entries = {
+  [moduleId: string]:
+    | ReturnType<Plugin['load']>
+    | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
 }
-
-// Use in your app
-import { chunk, curry, debounce, throttle } from 'lodash'
 ```
 
-**Use in Electron** 👉 [electron-vite-vue](https://github.com/electron-vite/electron-vite-vue/blob/main/packages/renderer/vite.config.ts)
+*You can see the return value type definition here [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)*
+
+`lib2esm(name[,members[,options]])`
+
+```ts
+export interface Lib2esmOptions {
+  /**
+   * Generate code snippet format
+   * 
+   * e.g.
+   * ```js
+   * const _M_ = require('lib') // cjs
+   * const _M_ = window['lib'] // iife
+   * ```
+   * 
+   * @default "iife"
+   */
+  format?: 'cjs' | 'iife',
+}
+export interface Lib2esm {
+  (name: string): string
+  (name: string, options: Lib2esmOptions): string
+  (name: string, members: string[]): string
+  (name: string, members: string[], options: Lib2esmOptions): string
+}
+export declare const lib2esm: Lib2esm
+```
 
 ## What's different from the official Demo?
 
