@@ -18,10 +18,8 @@ export interface Lib2esmOptions {
   format?: 'cjs' | 'iife',
 }
 export interface Lib2esm {
-  (name: string): string
-  (name: string, options: Lib2esmOptions): string
-  (name: string, members: string[]): string
-  (name: string, members: string[], options: Lib2esmOptions): string
+  (name: string, options?: Lib2esmOptions): string
+  (name: string, members: string[], options?: Lib2esmOptions): string
 }
 export declare const lib2esm: Lib2esm
 
