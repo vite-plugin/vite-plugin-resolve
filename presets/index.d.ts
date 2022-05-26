@@ -7,7 +7,7 @@ export interface Lib2esmOptions {
   /**
    * Generate code snippet format
    * 
-   * e.g.
+   * 🌰 e.g.
    * ```js
    * const _M_ = require('lib') // cjs
    * const _M_ = window['lib'] // iife
@@ -15,7 +15,7 @@ export interface Lib2esmOptions {
    * 
    * @default "iife"
    */
-  format?: 'cjs' | 'iife',
+  format?: "cjs" | "iife",
 }
 export interface Lib2esm {
   (name: string, options?: Lib2esmOptions): string
