@@ -50,12 +50,12 @@ export default {
   ]
 }
 
-// 你的逻辑代码
+// 使用
 import Vue, { version } from 'vue'
 import { ipcRenderer, shell } from 'electron'
 ```
 
-你可以很容易地使用' lib2esm() '来定制一些内容
+你可以很容易地使用 `lib2esm()` 来定制一些内容
 
 ```js
 import resolve, { lib2esm } from 'vite-plugin-resolve'
@@ -78,11 +78,12 @@ export default {
     }),
   ]
 }
+
 // 使用
 import _, { chunk, curry, debounce, throttle } from 'lodash'
 ```
 
-** 在 Electron 中使用 ** 👉 [electron-vite-vue](https://github.com/electron-vite/electron-vite-vue/blob/main/packages/renderer/vite.config.ts)
+**在 Electron 中使用** 👉 [electron-vite-vue](https://github.com/electron-vite/electron-vite-vue/blob/main/packages/renderer/vite.config.ts)
 
 ## 内置模块
 
@@ -133,8 +134,6 @@ type entries = {
     | ReturnType<Plugin['load']>
     | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
 }
-// 使用
-import _, { chunk, curry, debounce, throttle } from 'lodash'
 ```
 
 *你可以在此处看到返回值类型定义 [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)*
