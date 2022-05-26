@@ -59,6 +59,7 @@ You can easy to use `lib2esm()` to customize some things
 
 ```js
 import resolve, { lib2esm } from 'vite-plugin-resolve'
+
 export default {
   plugins: [
     resolve({
@@ -79,7 +80,7 @@ export default {
 }
 
 // Use in your app
-import { chunk, curry, debounce, throttle } from 'lodash'
+import _, { chunk, curry, debounce, throttle } from 'lodash'
 ```
 
 **Use in Electron** 👉 [electron-vite-vue](https://github.com/electron-vite/electron-vite-vue/blob/main/packages/renderer/vite.config.ts)
@@ -119,8 +120,8 @@ export default {
 }
 
 // Use in your app
-import { h, ref, reactive, watch } from 'vue'
-import { useState, useEffect } from 'react'
+import Vue, { ref, reactive, computed, watch } from 'vue'
+import React, { useState, useEffect } from 'react'
 ```
 
 ## API
@@ -144,7 +145,7 @@ export interface Lib2esmOptions {
   /**
    * Generate code snippet format
    * 
-   * e.g.
+   * 🌰 e.g.
    * ```js
    * const _M_ = require('lib') // cjs
    * const _M_ = window['lib'] // iife
@@ -152,13 +153,11 @@ export interface Lib2esmOptions {
    * 
    * @default "iife"
    */
-  format?: 'cjs' | 'iife',
+  format?: "cjs" | "iife",
 }
 export interface Lib2esm {
-  (name: string): string
-  (name: string, options: Lib2esmOptions): string
-  (name: string, members: string[]): string
-  (name: string, members: string[], options: Lib2esmOptions): string
+  (name: string, options?: Lib2esmOptions): string
+  (name: string, members: string[], options?: Lib2esmOptions): string
 }
 export declare const lib2esm: Lib2esm
 ```

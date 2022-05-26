@@ -9,7 +9,7 @@
 **[English](https://github.com/vite-plugin/vite-plugin-resolve#readme) | 简体中文**
 
 🤔 你可以认为它是官方教程的一个实现 👉 [Virtual Modules Convention](https://vitejs.dev/guide/api-plugin.html#virtual-modules-convention)  
-📦 **开箱即用**, 内置 Vue, React, Antd, Element 等等 
+📦 **开箱即用**, 内置 Vue, React, Antd, Element 等等  
 🌱 支持自定义 external 代码段  
 ✅ Browser, Node.js, Electron  
 
@@ -59,6 +59,7 @@ import { ipcRenderer, shell } from 'electron'
 
 ```js
 import resolve, { lib2esm } from 'vite-plugin-resolve'
+
 export default {
   plugins: [
     resolve({
@@ -78,7 +79,7 @@ export default {
   ]
 }
 // 使用
-import { chunk, curry, debounce, throttle } from 'lodash'
+import _, { chunk, curry, debounce, throttle } from 'lodash'
 ```
 
 ** 在 Electron 中使用 ** 👉 [electron-vite-vue](https://github.com/electron-vite/electron-vite-vue/blob/main/packages/renderer/vite.config.ts)
@@ -118,8 +119,8 @@ export default {
 }
 
 // 使用
-import { h, ref, reactive, watch } from 'vue'
-import { useState, useEffect } from 'react'
+import Vue, { ref, reactive, computed, watch } from 'vue'
+import React, { useState, useEffect } from 'react'
 ```
 
 ## API
@@ -132,6 +133,8 @@ type entries = {
     | ReturnType<Plugin['load']>
     | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
 }
+// 使用
+import _, { chunk, curry, debounce, throttle } from 'lodash'
 ```
 
 *你可以在此处看到返回值类型定义 [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)*
@@ -143,7 +146,7 @@ export interface Lib2esmOptions {
   /**
    * 生成代码段格式
    * 
-   * 🌰
+   * 🌰 e.g.
    * ```js
    * const _M_ = require('lib') // cjs
    * const _M_ = window['lib'] // iife
@@ -151,13 +154,11 @@ export interface Lib2esmOptions {
    * 
    * @default "iife"
    */
-  format?: 'cjs' | 'iife',
+  format?: "cjs" | "iife",
 }
 export interface Lib2esm {
-  (name: string): string
-  (name: string, options: Lib2esmOptions): string
-  (name: string, members: string[]): string
-  (name: string, members: string[], options: Lib2esmOptions): string
+  (name: string, options?: Lib2esmOptions): string
+  (name: string, members: string[], options?: Lib2esmOptions): string
 }
 export declare const lib2esm: Lib2esm
 ```
