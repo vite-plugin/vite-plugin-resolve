@@ -8,10 +8,10 @@ Custom resolve module content
 
 **English | [简体中文](https://github.com/vite-plugin/vite-plugin-resolve/blob/main/README.zh-CN.md)**
 
-🤔 You can think of this as the implementation of the official tutorial 👉 [Virtual Modules Convention](https://vitejs.dev/guide/api-plugin.html#virtual-modules-convention)  
-📦 **Out of the box**, builtin Vue, React, Antd, Element and others  
-🌱 Support custom code snippets  
-✅ Browser, Node.js, Electron  
+- 🤔 You can think of this as the implementation of the official tutorial 👉 [Virtual Modules Convention](https://vitejs.dev/guide/api-plugin.html#virtual-modules-convention)
+- 🌱 What you see is what you get
+- 📦 Out of the box <sub><sup>(builtin Vue, React, Antd, Element and others)</sup></sub>
+- 🚀 Browser, Node.js, Electron
 
 ## Install
 

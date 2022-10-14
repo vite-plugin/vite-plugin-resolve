@@ -8,10 +8,10 @@
 
 **[English](https://github.com/vite-plugin/vite-plugin-resolve#readme) | 简体中文**
 
-🤔 你可以认为它是官方教程的一个实现 👉 [Virtual Modules Convention](https://vitejs.dev/guide/api-plugin.html#virtual-modules-convention)  
-📦 **开箱即用**, 内置 Vue, React, Antd, Element 等等  
-🌱 支持自定义 external 代码段  
-✅ Browser, Node.js, Electron  
+- 🤔 你可以认为它是官方教程的一个实现 👉 [Virtual Modules Convention](https://vitejs.dev/guide/api-plugin.html#virtual-modules-convention)
+- 🌱 所见即所得
+- 📦 开箱即用 <sub><sup>(内置 Vue, React, Antd, Element 等等)</sup></sub>
+- 🚀 Browser, Node.js, Electron
 
 ## 安装
 
