@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import libEsmSnippet from 'lib-esm-snippet';
 
 // const iswatch = process.argv.slice(2).includes('--watch');
 const CJS = {
@@ -66,7 +67,6 @@ console.log(
 );
 
 // generate index.mjs
-const cjsPolyfill = `import { createRequire } from 'node:module';\nconst cjs_require = createRequire(import.meta.url);`
 const cjsFiles = [
   'presets/index.js',
   'index.js',
@@ -75,17 +75,13 @@ for (const file of cjsFiles) {
   const filename = path.join(CJS.__dirname, file);
   const basename = path.basename(filename);
   const destname = filename.replace('.js', '.mjs');
-  const exports = Object.keys(CJS.require(filename));
-  const code = `
-${cjsPolyfill}
+  const members = Object.keys(CJS.require(filename));
+  const { snippet } = libEsmSnippet({
+    lib: `./${basename}`,
+    members,
+  });
 
-const _M_ = cjs_require('./${basename}');
-const _D_ = _M_.default || _M_;
-export { _D_ as default };
-${exports.map(exp => `export const ${exp} = _M_.${exp};`).join('\n')}
-`;
-
-  fs.writeFileSync(destname, code);
+  fs.writeFileSync(destname, snippet);
   console.log(
     colours.cyan('[write]'),
     colours.gary(new Date().toLocaleTimeString()),
