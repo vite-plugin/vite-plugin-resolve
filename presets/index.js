@@ -76,7 +76,7 @@ exports.lib2esm = function (name, ...args) {
   const snippet = `
 ${importTpl}
 const _D_ = _M_.default || _M_;
-export { _D_ as default }
+export { _D_ as default };
 ${exportMembers}
 `.trim();
 
