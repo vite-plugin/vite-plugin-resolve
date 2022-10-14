@@ -21,6 +21,7 @@
   "license": "MIT",
   "scripts": {
     "build": "node build.mjs",
+    "test": "node test/index.mjs",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
