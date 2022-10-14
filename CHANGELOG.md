@@ -1,3 +1,10 @@
+## 2.2.0 (2022-10-15)
+
+- 8537ff7 v0.2.0
+- ebb0fd3 feat: add test/__snapshots__
+- dca3cb9 refactor: use lib-esm-snippet
+- 852fff0 chore(deps): add lib-esm-snippet
+
 ## 2.1.4-2.1.7 (2022-10-14)
 
 🐞 fix `npm publish` missing files
