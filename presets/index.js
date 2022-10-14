@@ -1,4 +1,4 @@
-const libEsmSnippet = require('lib-esm-snippet');
+const libEsm = require('lib-esm');
 
 /**
  * @type {import('.').Lib2esm} 
@@ -17,7 +17,7 @@ exports.lib2esm = function (name, ...args) {
   const [members, options] = args;
   const { format = 'iife' } = options;
 
-  const { snippet } = libEsmSnippet({
+  const { snippet } = libEsm({
     lib: name,
     members,
     format,

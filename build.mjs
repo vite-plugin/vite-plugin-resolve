@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import libEsmSnippet from 'lib-esm-snippet';
+import libEsm from 'lib-esm';
 
 // const iswatch = process.argv.slice(2).includes('--watch');
 const CJS = {
@@ -76,7 +76,7 @@ for (const file of cjsFiles) {
   const basename = path.basename(filename);
   const destname = filename.replace('.js', '.mjs');
   const members = Object.keys(CJS.require(filename));
-  const { snippet } = libEsmSnippet({
+  const { snippet } = libEsm({
     lib: `./${basename}`,
     members,
   });
