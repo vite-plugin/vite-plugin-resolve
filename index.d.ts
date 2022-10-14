@@ -1,4 +1,4 @@
-import { Plugin } from 'vite';
+import type { Plugin } from 'vite';
 
 export default resolve;
 declare const resolve: VitePluginResolve;

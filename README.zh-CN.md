@@ -124,15 +124,19 @@ import Vue, { ref, reactive, computed, watch } from 'vue'
 import React, { useState, useEffect } from 'react'
 ```
 
-## API
+## API <sub><sup>(Define)</sup></sub>
 
 `resolve(entries)`
 
 ```ts
-type entries = {
-  [moduleId: string]:
-    | ReturnType<Plugin['load']>
-    | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
+import type { Plugin } from 'vite';
+
+export interface VitePluginResolve {
+  (entries: {
+    [moduleId: string]:
+      | ReturnType<Plugin['load']>
+      | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
+  }): Plugin[];
 }
 ```
 
