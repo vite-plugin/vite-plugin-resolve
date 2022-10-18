@@ -25,7 +25,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "lib-esm": "~0.1.0"
+    "lib-esm": "~0.2.0"
   },
   "devDependencies": {
     "vite": "^3.x.x"
