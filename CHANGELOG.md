@@ -1,3 +1,11 @@
+## 2.2.2 (2022-10-18)
+
+- ca4ab26 v2.2.2
+- e007d1b docs: v2.2.2
+- 3ef04a8 feat: better type define 🌱
+- 29f6370 refactor: use lib-esm@0.2.0
+- d193b61 chore: bump lib-esm to 0.2.0
+
 ## 2.2.1 (2022-10-15)
 
 - 6bfc750 v2.2.1
