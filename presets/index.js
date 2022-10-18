@@ -17,13 +17,13 @@ exports.lib2esm = function (name, ...args) {
   const [members, options] = args;
   const { format = 'iife' } = options;
 
-  const { snippet } = libEsm({
-    lib: name,
-    members,
+  const result = libEsm({
+    require: name,
+    exports: members,
     format,
-  });
+  })
 
-  return snippet;
+  return `${result.require}\n${result.exports}`;
 };
 
 for (const [name, versions] of Object.entries(require('./libs.json'))) {
