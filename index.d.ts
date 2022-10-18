@@ -1,14 +1,14 @@
 import type { Plugin } from 'vite';
 
-export default resolve;
-declare const resolve: VitePluginResolve;
-
-export interface VitePluginResolve {
-  (entries: {
-    [moduleId: string]:
-      | ReturnType<Plugin['load']>
-      | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
-  }): Plugin[];
-}
-
 export const lib2esm: import('./presets').Lib2esm;
+
+declare module 'vite-plugin-resolve' {
+  function resolve(entries: {
+    [moduleId: string]:
+    | import('rollup').LoadResult
+    | Plugin['load'];
+  }): Plugin[];
+
+  // https://www.typescriptlang.org/docs/handbook/declaration-files/templates/module-d-ts.html#default-exports
+  export = resolve;
+}

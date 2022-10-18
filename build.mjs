@@ -76,12 +76,12 @@ for (const file of cjsFiles) {
   const basename = path.basename(filename);
   const destname = filename.replace('.js', '.mjs');
   const members = Object.keys(CJS.require(filename));
-  const { snippet } = libEsm({
-    lib: `./${basename}`,
-    members,
+  const result = libEsm({
+    require: `./${basename}`,
+    exports: members,
   });
 
-  fs.writeFileSync(destname, snippet);
+  fs.writeFileSync(destname, `${result.require}\n${result.exports}`);
   console.log(
     colours.cyan('[write]'),
     colours.gary(new Date().toLocaleTimeString()),

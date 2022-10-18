@@ -131,13 +131,11 @@ import React, { useState, useEffect } from 'react'
 ```ts
 import type { Plugin } from 'vite';
 
-export interface VitePluginResolve {
-  (entries: {
-    [moduleId: string]:
-      | ReturnType<Plugin['load']>
-      | ((...args: Parameters<Plugin['load']>) => ReturnType<Plugin['load']>)
-  }): Plugin[];
-}
+function resolve(entries: {
+  [moduleId: string]:
+  | import('rollup').LoadResult
+  | Plugin['load'];
+}): Plugin[];
 ```
 
 *You can see the return value type definition here [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)*
@@ -163,7 +161,6 @@ export interface Lib2esm {
   (name: string, options?: Lib2esmOptions): string
   (name: string, members: string[], options?: Lib2esmOptions): string
 }
-export declare const lib2esm: Lib2esm
 ```
 
 ## What's different from the official Demo?
