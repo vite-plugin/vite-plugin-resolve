@@ -1,36 +1,40 @@
-import fs from 'node:fs';
 import path from 'node:path';
+import cp from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { lib2esm } from '../index.mjs';
+import { strict as assert } from 'node:assert';
+import { build } from 'vite';
+import resolve from '../index.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const destpath = path.join(__dirname, '__snapshots__');
-fs.rmSync(destpath, { recursive: true, force: true });
 
-const maps = [
-  {
-    name: 'iife',
-    members: [
-      'default',
-      'delete',
-      'foo',
-      'bar',
-    ],
+await build({
+  root: __dirname,
+  build: {
+    minify: false,
+    outDir: '',
+    emptyOutDir: false,
+    lib: {
+      entry: '-.js',
+      formats: ['es'],
+      fileName: format => format === 'cjs' ? '[name].cjs' : '[name].mjs',
+    },
   },
-  {
-    name: './cjs',
-    members: [
-      'default',
-      'delete',
-      'foo',
-      'bar',
-    ],
-    format: 'cjs',
-  },
-];
+  plugins: [
+    resolve({
+      foo: `
+const message = 'foo';
+export {
+  message,
+};
+`,
+    }),
+  ],
+});
 
-for (const map of maps) {
-  const code = lib2esm(map.name, map.members, { format: map.format });
-  fs.mkdirSync(destpath, { recursive: true });
-  fs.writeFileSync(path.join(destpath, `${map.name}.mjs`), code);
-}
+cp.spawn('node', ['./-.mjs'], { cwd: __dirname })
+  .stdout.on('data', chunk => {
+    const str = chunk.toString().trim();
+    assert.equal(str, 'foo');
+    console.log('test success');
+  });
+
