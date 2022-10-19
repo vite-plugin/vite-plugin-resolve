@@ -55,28 +55,36 @@ import Vue, { version } from 'vue'
 import { ipcRenderer, shell } from 'electron'
 ```
 
-你可以很容易地使用 `lib2esm()` 来定制一些内容
+配合 [lib-esm](https://www.npmjs.com/package/lib-esm) 使用
+
+```sh
+npm i lib-esm
+```
 
 ```js
-import resolve, { lib2esm } from 'vite-plugin-resolve'
+import resolve from 'vite-plugin-resolve'
+import libEsm from 'lib-esm'
 
 export default {
   plugins: [
     resolve({
       // 用 lodash 举个 🌰
-      lodash: lib2esm(
-        // lodash 全局名称
-        '_',
-        // export memebers
-        [
-          'chunk',
-          'curry',
-          'debounce',
-          'throttle',
-        ],
-      ),
+      lodash: () => {
+        const result = libEsm({
+          // lodash 全局名称
+          window: '_',
+          // export memebers
+          exports: [
+            'chunk',
+            'curry',
+            'debounce',
+            'throttle',
+          ],
+        })
+        return `${result.window}\n${result.exports}`
+      },
     }),
-  ]
+  ],
 }
 
 // 使用
@@ -129,40 +137,14 @@ import React, { useState, useEffect } from 'react'
 `resolve(entries)`
 
 ```ts
-import type { Plugin } from 'vite';
-
 function resolve(entries: {
   [moduleId: string]:
   | import('rollup').LoadResult
-  | Plugin['load'];
-}): Plugin[];
+  | import('vite').Plugin['load'];
+}): import('vite').Plugin[];
 ```
 
 *你可以在此处看到返回值类型定义 [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)*
-
-`lib2esm(name[,members[,options]])`
-
-```ts
-export interface Lib2esmOptions {
-  /**
-   * 生成代码段格式
-   * 
-   * 🌰 e.g.
-   * ```js
-   * const _M_ = require('lib') // cjs
-   * const _M_ = window['lib'] // iife
-   * ```
-   * 
-   * @default "iife"
-   */
-  format?: "cjs" | "iife",
-}
-export interface Lib2esm {
-  (name: string, options?: Lib2esmOptions): string
-  (name: string, members: string[], options?: Lib2esmOptions): string
-}
-```
-
 
 ## 这与官方的 Demo 有何异同？
 
