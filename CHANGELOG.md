@@ -1,3 +1,11 @@
+## 2.3.0 (2022-10-19)
+
+- 6a3e7d7 v2.3.0
+- 5c06383 docs: v2.3.0
+- eed477d feat(test): improve test 🌱
+- 6d3ff68 chore(deps): bump lib-esm to 0.3.0
+- fa0313f refactor(2.3.0): remove `lib2esm()`
+
 ## 2.2.2 (2022-10-18)
 
 - ca4ab26 v2.2.2
