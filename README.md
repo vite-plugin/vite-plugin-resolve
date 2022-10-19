@@ -55,28 +55,36 @@ import Vue, { version } from 'vue'
 import { ipcRenderer, shell } from 'electron'
 ```
 
-You can easy to use `lib2esm()` to customize some things
+Use with [lib-esm](https://www.npmjs.com/package/lib-esm)
+
+```sh
+npm i lib-esm
+```
 
 ```js
-import resolve, { lib2esm } from 'vite-plugin-resolve'
+import resolve from 'vite-plugin-resolve'
+import libEsm from 'lib-esm'
 
 export default {
   plugins: [
     resolve({
       // Let's use lodash as an example
-      lodash: lib2esm(
-        // lodash iife name
-        '_',
-        // export memebers
-        [
-          'chunk',
-          'curry',
-          'debounce',
-          'throttle',
-        ],
-      ),
+      lodash: () => {
+        const result = libEsm({
+          // lodash iife name
+          window: '_',
+          // export memebers
+          exports: [
+            'chunk',
+            'curry',
+            'debounce',
+            'throttle',
+          ],
+        })
+        return `${result.window}\n${result.exports}`
+      },
     }),
-  ]
+  ],
 }
 
 // Use in your app
@@ -129,39 +137,14 @@ import React, { useState, useEffect } from 'react'
 `resolve(entries)`
 
 ```ts
-import type { Plugin } from 'vite';
-
 function resolve(entries: {
   [moduleId: string]:
   | import('rollup').LoadResult
-  | Plugin['load'];
-}): Plugin[];
+  | import('vite').Plugin['load'];
+}): import('vite').Plugin[];
 ```
 
 *You can see the return value type definition here [rollup/types.d.ts#L272](https://github.com/rollup/rollup/blob/b8315e03f9790d610a413316fbf6d565f9340cab/src/rollup/types.d.ts#L272)*
-
-`lib2esm(name[,members[,options]])`
-
-```ts
-export interface Lib2esmOptions {
-  /**
-   * Generate code snippet format
-   * 
-   * 🌰 e.g.
-   * ```js
-   * const _M_ = require('lib') // cjs
-   * const _M_ = window['lib'] // iife
-   * ```
-   * 
-   * @default "iife"
-   */
-  format?: "cjs" | "iife",
-}
-export interface Lib2esm {
-  (name: string, options?: Lib2esmOptions): string
-  (name: string, members: string[], options?: Lib2esmOptions): string
-}
-```
 
 ## What's different from the official Demo?
 

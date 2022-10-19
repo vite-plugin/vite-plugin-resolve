@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-resolve",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "Custom resolve module content.",
   "main": "index.js",
   "exports": {
@@ -25,7 +25,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "lib-esm": "~0.2.0"
+    "lib-esm": "~0.3.0"
   },
   "devDependencies": {
     "vite": "^3.x.x"
