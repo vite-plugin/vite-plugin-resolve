@@ -53,6 +53,10 @@ export default {
 // 使用
 import Vue, { version } from 'vue'
 import { ipcRenderer, shell } from 'electron'
+
+// 确保你的 index.html 已经包含了 CND 文件.
+// 🌰
+// <script src="https://unpkg.com/vue@3.2.45/dist/vue.global.js"></script>
 ```
 
 配合 [lib-esm](https://www.npmjs.com/package/lib-esm) 使用

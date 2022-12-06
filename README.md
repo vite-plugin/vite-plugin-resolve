@@ -53,6 +53,10 @@ export default {
 // Use in your app
 import Vue, { version } from 'vue'
 import { ipcRenderer, shell } from 'electron'
+
+// Make sure that index.html has introduced the CND file.
+// e.g.
+// <script src="https://unpkg.com/vue@3.2.45/dist/vue.global.js"></script>
 ```
 
 Use with [lib-esm](https://www.npmjs.com/package/lib-esm)
