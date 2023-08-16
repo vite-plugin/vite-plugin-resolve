@@ -54,7 +54,7 @@ export default {
 import Vue, { version } from 'vue'
 import { ipcRenderer, shell } from 'electron'
 
-// 确保你的 index.html 已经包含了 CND 文件.
+// 确保你的 index.html 已经包含了 CDN 文件.
 // 🌰
 // <script src="https://unpkg.com/vue@3.2.45/dist/vue.global.js"></script>
 ```
