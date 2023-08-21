@@ -1,8 +1,8 @@
 /**
- * @type {import('.').VitePluginResolve}
+ * @type {import('vite-plugin-resolve')}
  */
 module.exports = function resolve(resolves) {
-  const prefix = '\0';
+  const prefix = '\0plugin-resolve:';
   const resolveKeys = Object.keys(resolves);
   const resolveKeysWithPrefix = resolveKeys.map(key => prefix + key);
 

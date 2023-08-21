@@ -1,3 +1,12 @@
+## 2.4.0 (2023-08-21)
+
+- d28bff8 chore: cleanup types
+- 547aba1 fix(preset): export `lib.members`
+- b6012eb typo: Correct spelling mistakes
+- f55207d typo: Correct spelling mistakes
+- b463f79 fix: Supplement the 'peerDependencies' field in package.json
+- d778ffc docs: update
+
 ## 2.3.0 (2022-10-19)
 
 - 6a3e7d7 v2.3.0
