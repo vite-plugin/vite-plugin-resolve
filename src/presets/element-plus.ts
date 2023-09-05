@@ -1,7 +1,11 @@
-/**
- * @type {import('.').LibMeta}
- */
- module.exports = {
+import type { LibMeta, LibEsmResult } from './type';
+import libEsm from 'lib-esm';
+
+interface ElementPlusPreset {
+  v2: string;
+}
+
+const element_plus_v2: LibMeta = {
   name: 'ElementPlus',
   members: [
     'BAR_MAP',
@@ -356,4 +360,13 @@
     'virtualizedProps',
     'virtualizedScrollbarProps',
   ],
+};
+
+const v2_result: LibEsmResult = libEsm({
+  window: element_plus_v2.name,
+  exports: element_plus_v2.members,
+});
+
+export const element_plus: ElementPlusPreset = {
+  v2: `${v2_result.window}\n${v2_result.exports}`,
 };

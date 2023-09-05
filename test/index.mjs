@@ -3,7 +3,7 @@ import cp from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { strict as assert } from 'node:assert';
 import { build } from 'vite';
-import resolve from '../index.mjs';
+import resolve from '../dist/index.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

@@ -1,10 +1,16 @@
-/**
- * @type {import('vite-plugin-resolve')}
- */
-module.exports = function resolve(resolves) {
+import type { Plugin } from 'vite';
+import type { LoadResult } from 'rollup';
+
+interface RESOLVES {
+  [moduleId: string]:
+    | LoadResult
+    | ((id: string, opts?: { ssr?: boolean }) => LoadResult);
+}
+
+export default function resolve(resolves: RESOLVES): Plugin[] {
   const prefix = '\0plugin-resolve:';
-  const resolveKeys = Object.keys(resolves);
-  const resolveKeysWithPrefix = resolveKeys.map(key => prefix + key);
+  const resolveKeys: string[] = Object.keys(resolves);
+  const resolveKeysWithPrefix: string[] = resolveKeys.map(key => prefix + key);
 
   return [
     {
@@ -26,7 +32,9 @@ module.exports = function resolve(resolves) {
 
         let keys = resolveKeys;
         if (config.optimizeDeps.include) {
-          keys = resolveKeys.filter(key => !config.optimizeDeps.include.includes(key));
+          keys = resolveKeys.filter(
+            key => !config.optimizeDeps?.include?.includes(key)
+          );
         }
 
         config.optimizeDeps.exclude.push(...keys);
@@ -35,10 +43,10 @@ module.exports = function resolve(resolves) {
         if (resolveKeysWithPrefix.includes(id)) {
           const stringOrFunction = resolves[id.replace(prefix, '')];
           return typeof stringOrFunction === 'function'
-            ? stringOrFunction(id, opts)
+            ? stringOrFunction.apply(this, [id, opts])
             : stringOrFunction;
         }
       },
     },
   ];
-};
+}

@@ -2,15 +2,16 @@
   "name": "vite-plugin-resolve",
   "version": "2.4.0",
   "description": "Custom resolve module content.",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
     "./presets": {
-      "import": "./presets/index.mjs",
-      "require": "./presets/index.js"
+      "import": "./dist/presets/preset.mjs",
+      "require": "./dist/presets/preset.js"
     }
   },
   "repository": {
@@ -20,24 +21,21 @@
   "author": "草鞋没号 <308487730@qq.com>",
   "license": "MIT",
   "scripts": {
-    "build": "node build.mjs",
+    "build": "vite build",
+    "types": "tsc",
     "test": "node test/index.mjs",
     "prepublishOnly": "npm run test && npm run build"
-  },
-  "peerDependencies": {
-    "vite": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "dependencies": {
     "lib-esm": "~0.3.0"
   },
   "devDependencies": {
+    "@types/node": "^20.5.9",
     "vite": "^3.x.x"
   },
   "files": [
-    "presets/*",
-    "index.d.ts",
-    "index.js",
-    "index.mjs"
+    "dist",
+    "presets.d.ts"
   ],
   "keywords": [
     "vite",

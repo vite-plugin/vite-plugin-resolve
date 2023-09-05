@@ -1,7 +1,85 @@
-/**
- * @type {import('.').LibMeta}
- */
- module.exports = {
+import type { LibMeta, LibEsmResult } from './type';
+import libEsm from 'lib-esm';
+
+interface AntDVuePreset {
+  v1: string;
+  v3: string;
+}
+
+const antd_vue_v1: LibMeta = {
+  name: 'antd',
+  members: [
+    'install',
+    'Affix',
+    'Anchor',
+    'AutoComplete',
+    'Alert',
+    'Avatar',
+    'BackTop',
+    'Badge',
+    'Base',
+    'Breadcrumb',
+    'Button',
+    'Calendar',
+    'Card',
+    'Collapse',
+    'Carousel',
+    'Cascader',
+    'Checkbox',
+    'Col',
+    'DatePicker',
+    'Divider',
+    'Dropdown',
+    'Form',
+    'FormModel',
+    'Icon',
+    'Input',
+    'InputNumber',
+    'Layout',
+    'List',
+    'LocaleProvider',
+    'message',
+    'Menu',
+    'Mentions',
+    'Modal',
+    'notification',
+    'Pagination',
+    'Popconfirm',
+    'Popover',
+    'Progress',
+    'Radio',
+    'Rate',
+    'Row',
+    'Select',
+    'Slider',
+    'Spin',
+    'Statistic',
+    'Steps',
+    'Switch',
+    'Table',
+    'Transfer',
+    'Tree',
+    'TreeSelect',
+    'Tabs',
+    'Tag',
+    'TimePicker',
+    'Timeline',
+    'Tooltip',
+    'Upload',
+    'version',
+    'Drawer',
+    'Skeleton',
+    'Comment',
+    'ConfigProvider',
+    'Empty',
+    'Result',
+    'Descriptions',
+    'PageHeader',
+    'Space',
+    'default',
+  ],
+};
+const antd_vue_v3: LibMeta = {
   name: 'antd',
   members: [
     'BAR_MAP',
@@ -358,4 +436,18 @@
     'virtualizedProps',
     'virtualizedScrollbarProps',
   ],
+};
+
+const v1_result: LibEsmResult = libEsm({
+  window: antd_vue_v1.name,
+  exports: antd_vue_v1.members,
+});
+const v3_result: LibEsmResult = libEsm({
+  window: antd_vue_v3.name,
+  exports: antd_vue_v3.members,
+});
+
+export const antd_vue: AntDVuePreset = {
+  v1: `${v1_result.window}\n${v1_result.exports}`,
+  v3: `${v3_result.window}\n${v3_result.exports}`,
 };

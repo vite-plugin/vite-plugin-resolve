@@ -1,7 +1,32 @@
-/**
- * @type {import('.').LibMeta}
- */
- module.exports = {
+import type { LibMeta, LibEsmResult } from './type';
+import libEsm from 'lib-esm';
+
+interface VuePreset {
+  v2: string;
+  v3: string;
+}
+
+const vue_v2: LibMeta = {
+  name: 'Vue',
+  members: [
+    'util',
+    'set',
+    'delete',
+    'nextTick',
+    'observable',
+    'options',
+    'use',
+    'mixin',
+    'cid',
+    'extend',
+    'component',
+    'directive',
+    'filter',
+    'version',
+    'compile',
+  ],
+};
+const vue_v3: LibMeta = {
   name: 'Vue',
   members: [
     'BaseTransition',
@@ -149,4 +174,18 @@
     'withModifiers',
     'withScopeId',
   ],
+};
+
+const v2_result: LibEsmResult = libEsm({
+  window: vue_v2.name,
+  exports: vue_v2.members,
+});
+const v3_result: LibEsmResult = libEsm({
+  window: vue_v3.name,
+  exports: vue_v3.members,
+});
+
+export const vue: VuePreset = {
+  v2: `${v2_result.window}\n${v2_result.exports}`,
+  v3: `${v3_result.window}\n${v3_result.exports}`,
 };
