@@ -12,7 +12,8 @@
     "./presets": {
       "import": "./dist/presets/preset.mjs",
       "require": "./dist/presets/preset.js"
-    }
+    },
+    "./*":"./*"
   },
   "repository": {
     "type": "git",
