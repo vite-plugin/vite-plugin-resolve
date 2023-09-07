@@ -1,7 +1,7 @@
 /**
  * @type {import('.').LibMeta}
  */
- module.exports = {
+module.exports = {
   name: 'Vuex',
   members: [
     'version',
