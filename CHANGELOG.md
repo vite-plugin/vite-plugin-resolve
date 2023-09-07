@@ -1,3 +1,9 @@
+## 2.4.1 (2023-09-07)
+
+- 42cd576 feat: add vue@2.7
+- 640eccd chore: format
+- aee0c9a fix: antd-design-vue-v3
+
 ## 2.4.0 (2023-08-21)
 
 - d28bff8 chore: cleanup types
