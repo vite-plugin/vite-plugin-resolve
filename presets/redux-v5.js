@@ -1,7 +1,7 @@
 /**
  * @type {import('.').LibMeta}
  */
- module.exports = {
+module.exports = {
   name: 'Redux',
   members: [
     '__DO_NOT_USE__ActionTypes',
