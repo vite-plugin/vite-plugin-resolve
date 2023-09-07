@@ -1,35 +1,12 @@
-import type { LibMeta, LibEsmResult } from './type';
-import libEsm from 'lib-esm';
-
-interface VuePreset {
-  v2: string;
-  v3: string;
-}
-
-const vue_v2: LibMeta = {
+/**
+ * @type {import('.').LibMeta}
+ */
+module.exports = {
   name: 'Vue',
   members: [
-    'util',
-    'set',
-    'delete',
-    'nextTick',
-    'observable',
-    'options',
-    'use',
-    'mixin',
-    'cid',
-    'extend',
-    'component',
-    'directive',
-    'filter',
-    'version',
-    'compile',
-  ],
-};
-const vue_v3: LibMeta = {
-  name: 'Vue',
-  members: [
+    'devtools',
     'BaseTransition',
+    'BaseTransitionPropsValidators',
     'Comment',
     'EffectScope',
     'Fragment',
@@ -42,6 +19,7 @@ const vue_v3: LibMeta = {
     'Transition',
     'TransitionGroup',
     'VueElement',
+    'assertNumber',
     'callWithAsyncErrorHandling',
     'callWithErrorHandling',
     'camelize',
@@ -69,8 +47,11 @@ const vue_v3: LibMeta = {
     'defineCustomElement',
     'defineEmits',
     'defineExpose',
+    'defineModel',
+    'defineOptions',
     'defineProps',
     'defineSSRCustomElement',
+    'defineSlots',
     'effect',
     'effectScope',
     'getCurrentInstance',
@@ -79,6 +60,7 @@ const vue_v3: LibMeta = {
     'guardReactiveProps',
     'h',
     'handleError',
+    'hasInjectionContext',
     'hydrate',
     'initCustomFormatter',
     'initDirectivesForSSR',
@@ -93,6 +75,7 @@ const vue_v3: LibMeta = {
     'isVNode',
     'markRaw',
     'mergeDefaults',
+    'mergeModels',
     'mergeProps',
     'nextTick',
     'normalizeClass',
@@ -144,12 +127,14 @@ const vue_v3: LibMeta = {
     'toRaw',
     'toRef',
     'toRefs',
+    'toValue',
     'transformVNodeArgs',
     'triggerRef',
     'unref',
     'useAttrs',
     'useCssModule',
     'useCssVars',
+    'useModel',
     'useSSRContext',
     'useSlots',
     'useTransitionState',
@@ -174,18 +159,4 @@ const vue_v3: LibMeta = {
     'withModifiers',
     'withScopeId',
   ],
-};
-
-const v2_result: LibEsmResult = libEsm({
-  window: vue_v2.name,
-  exports: vue_v2.members,
-});
-const v3_result: LibEsmResult = libEsm({
-  window: vue_v3.name,
-  exports: vue_v3.members,
-});
-
-export const vue: VuePreset = {
-  v2: `${v2_result.window}\n${v2_result.exports}`,
-  v3: `${v3_result.window}\n${v3_result.exports}`,
 };

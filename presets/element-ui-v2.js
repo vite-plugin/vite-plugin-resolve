@@ -1,11 +1,7 @@
-import type { LibMeta, LibEsmResult } from './type';
-import libEsm from 'lib-esm';
-
-interface ElementUiPreset {
-  v2: string;
-}
-
-const element_ui_v2: LibMeta = {
+/**
+ * @type {import('.').LibMeta}
+ */
+module.exports = {
   name: 'ELEMENT',
   members: [
     'version',
@@ -102,13 +98,4 @@ const element_ui_v2: LibMeta = {
     'DescriptionsItem',
     'Result',
   ],
-};
-
-const v2_result: LibEsmResult = libEsm({
-  window: element_ui_v2.name,
-  exports: element_ui_v2.members,
-});
-
-export const element_ui: ElementUiPreset = {
-  v2: `${v2_result.window}\n${v2_result.exports}`,
 };

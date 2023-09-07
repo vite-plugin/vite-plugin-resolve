@@ -1,12 +1,10 @@
-import type { LibMeta, LibEsmResult } from './type';
-import libEsm from 'lib-esm';
-
-interface AntdPreset {
-  v4: string;
-}
-const antd_v4: LibMeta = {
+/**
+ * @type {import('.').LibMeta}
+ */
+module.exports = {
   name: 'antd',
   members: [
+    'install',
     'Affix',
     'Anchor',
     'AutoComplete',
@@ -14,6 +12,7 @@ const antd_v4: LibMeta = {
     'Avatar',
     'BackTop',
     'Badge',
+    'Base',
     'Breadcrumb',
     'Button',
     'Calendar',
@@ -23,41 +22,33 @@ const antd_v4: LibMeta = {
     'Cascader',
     'Checkbox',
     'Col',
-    'Comment',
-    'ConfigProvider',
     'DatePicker',
-    'Descriptions',
     'Divider',
     'Dropdown',
-    'Drawer',
-    'Empty',
     'Form',
-    'Grid',
+    'FormModel',
+    'Icon',
     'Input',
-    'Image',
     'InputNumber',
     'Layout',
     'List',
+    'LocaleProvider',
     'message',
     'Menu',
     'Mentions',
     'Modal',
-    'Statistic',
     'notification',
-    'PageHeader',
     'Pagination',
     'Popconfirm',
     'Popover',
     'Progress',
     'Radio',
     'Rate',
-    'Result',
     'Row',
     'Select',
-    'Skeleton',
     'Slider',
-    'Space',
     'Spin',
+    'Statistic',
     'Steps',
     'Switch',
     'Table',
@@ -69,17 +60,17 @@ const antd_v4: LibMeta = {
     'TimePicker',
     'Timeline',
     'Tooltip',
-    'Typography',
     'Upload',
     'version',
+    'Drawer',
+    'Skeleton',
+    'Comment',
+    'ConfigProvider',
+    'Empty',
+    'Result',
+    'Descriptions',
+    'PageHeader',
+    'Space',
+    'default',
   ],
-};
-
-const v4_result: LibEsmResult = libEsm({
-  window: antd_v4.name,
-  exports: antd_v4.members,
-});
-
-export const antd: AntdPreset = {
-  v4: `${v4_result.window}\n${v4_result.exports}`,
 };

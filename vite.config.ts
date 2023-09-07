@@ -10,8 +10,7 @@ export default defineConfig({
     target: 'node14',
     lib: {
       entry: {
-        index: './src/index.ts',
-        ['presets/preset']: './src/presets/index.ts',
+        index: './index.ts'
       },
       formats: ['cjs', 'es'],
       fileName: format => (format === 'es' ? '[name].mjs' : '[name].js'),

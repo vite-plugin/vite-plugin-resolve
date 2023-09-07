@@ -1,11 +1,7 @@
-import type { LibMeta, LibEsmResult } from './type';
-import libEsm from 'lib-esm';
-
-interface VueCompositionApiPreset {
-  v1: string;
-}
-
-const vue_composition_api_v1: LibMeta = {
+/**
+ * @type {import('.').LibMeta}
+ */
+module.exports = {
   name: 'VueCompositionAPI',
   members: [
     'EffectScope',
@@ -64,13 +60,4 @@ const vue_composition_api_v1: LibMeta = {
     'watchPostEffect',
     'watchSyncEffect',
   ],
-};
-
-const v1_result: LibEsmResult = libEsm({
-  window: vue_composition_api_v1.name,
-  exports: vue_composition_api_v1.members,
-});
-
-export const vue_composition_api: VueCompositionApiPreset = {
-  v1: `${v1_result.window}\n${v1_result.exports}`,
 };

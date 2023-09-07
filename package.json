@@ -10,8 +10,8 @@
       "require": "./dist/index.js"
     },
     "./presets": {
-      "import": "./dist/presets/preset.mjs",
-      "require": "./dist/presets/preset.js"
+      "import": "./presets/index.mjs",
+      "require": "./presets/index.js"
     },
     "./*":"./*"
   },
@@ -22,10 +22,13 @@
   "author": "草鞋没号 <308487730@qq.com>",
   "license": "MIT",
   "scripts": {
-    "build": "vite build",
+    "build": "node build.mjs && vite build",
     "types": "tsc",
     "test": "node test/index.mjs",
     "prepublishOnly": "npm run test && npm run build"
+  },
+  "peerDependencies": {
+    "vite": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "dependencies": {
     "lib-esm": "~0.3.0"
@@ -35,8 +38,8 @@
     "vite": "^3.x.x"
   },
   "files": [
-    "dist",
-    "presets.d.ts"
+    "dist/*",
+    "presets/*"
   ],
   "keywords": [
     "vite",
