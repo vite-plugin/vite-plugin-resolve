@@ -9,8 +9,8 @@ interface RESOLVES {
 
 export default function resolve(resolves: RESOLVES): Plugin[] {
   const prefix = '\0plugin-resolve:';
-  const resolveKeys: string[] = Object.keys(resolves);
-  const resolveKeysWithPrefix: string[] = resolveKeys.map(key => prefix + key);
+  const resolveKeys = Object.keys(resolves);
+  const resolveKeysWithPrefix = resolveKeys.map(key => prefix + key);
 
   return [
     {
@@ -33,7 +33,8 @@ export default function resolve(resolves: RESOLVES): Plugin[] {
         let keys = resolveKeys;
         if (config.optimizeDeps.include) {
           keys = resolveKeys.filter(
-            key => !config.optimizeDeps?.include?.includes(key)
+            // @ts-ignore
+            key => !config.optimizeDeps.include.includes(key)
           );
         }
 
