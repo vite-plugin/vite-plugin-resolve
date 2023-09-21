@@ -13,7 +13,8 @@
     },
     "./presets": {
       "import": "./presets/index.mjs",
-      "require": "./presets/index.js"
+      "require": "./presets/index.js",
+      "types": "./presets/indexd.ts"
     },
     "./*": "./*"
   },
@@ -27,22 +28,19 @@
     "build": "node build.mjs && vite build",
     "types": "tsc",
     "test": "node test/index.mjs",
-    "prepublishOnly": "npm run test && npm run build"
-  },
-  "peerDependencies": {
-    "vite": "^2.0.0 || ^3.0.0 || ^4.0.0"
+    "prepublishOnly": "npm run build && npm run test"
   },
   "dependencies": {
-    "lib-esm": "~0.3.0"
-  },
+    "lib-esm": "~0.4.1"
+},
   "devDependencies": {
     "@types/node": "^20.5.9",
     "typescript": "^5.2.2",
-    "vite": "^3.x.x"
+    "vite": "^4.4.9"
   },
   "files": [
-    "dist/*",
-    "presets/*"
+    "dist",
+    "presets"
   ],
   "keywords": [
     "vite",
