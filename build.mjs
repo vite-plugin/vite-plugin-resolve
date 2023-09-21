@@ -68,8 +68,7 @@ console.log(
 
 // generate index.mjs
 const cjsFiles = [
-  'presets/index.js',
-  'index.js',
+  'presets/index.js'
 ];
 for (const file of cjsFiles) {
   const filename = path.join(CJS.__dirname, file);

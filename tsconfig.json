@@ -11,6 +11,8 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "outDir": "types"
-  }
+    "outDir": "./dist",
+    "emitDeclarationOnly": true
+  },
+  "include": ["index.ts"]
 }
