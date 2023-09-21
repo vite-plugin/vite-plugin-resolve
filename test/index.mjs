@@ -35,6 +35,5 @@ cp.spawn('node', ['./-.mjs'], { cwd: __dirname })
   .stdout.on('data', chunk => {
     const str = chunk.toString().trim();
     assert.equal(str, 'foo');
-    console.log('test success');
+    console.log('[test] success');
   });
-
