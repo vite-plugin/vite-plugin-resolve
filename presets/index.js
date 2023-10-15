@@ -1,4 +1,4 @@
-const libEsm = require('lib-esm');
+const libEsm = require('lib-esm').default;
 
 for (const [name, versions] of Object.entries(require('./libs.json'))) {
   const record = {};

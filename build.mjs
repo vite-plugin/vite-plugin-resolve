@@ -25,14 +25,15 @@ const colours = {
 };
 
 const presetsDir = path.join(CJS.__dirname, 'presets');
-const presetRE = /(.+)-(v\d+)\.js$/;
+const presetRE = /(.+)-(v[\d.]+)\.js$/;
 const files = fs.readdirSync(presetsDir).filter(file => presetRE.test(file));
 
 /** @type {Record<string, Record<string, string>>} */
 const records = {};
 for (const file of files) {
   const [, name, version] = presetRE.exec(file);
-  const record = { [version]: file };
+  const dot2_ = str => str.replace('.', '_'); // . -> _
+  const record = { [dot2_(version)]: file };
 
   if (records[name]) {
     Object.assign(records[name], record);
