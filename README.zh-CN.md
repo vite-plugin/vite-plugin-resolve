@@ -104,8 +104,9 @@ import _, { chunk, curry, debounce, throttle } from 'lodash'
 ```js
 import resolve from 'vite-plugin-resolve'
 import {
-  antd_vue,
+  ant_design_vue,
   antd,
+  axios,
   element_plus,
   element_ui,
   pinia,
@@ -115,6 +116,7 @@ import {
   react,
   redux,
   vue_composition_api,
+  vue_demi,
   vue_router,
   vue,
   vuex,
