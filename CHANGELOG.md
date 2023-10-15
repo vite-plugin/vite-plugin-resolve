@@ -1,3 +1,17 @@
+## 2.5.0 (2023-10-15)
+
+- 07d1aa5 feat: support . version
+- b537af7 feat(presets): add vue-demi
+- e976aaa feat(presets): add axios
+- 7652297 chore: bump lib-esm from 0.3.0 to 0.4.1
+- ffb3e46 chore: cleanup
+- 64a7ab8 Merge pull request #13 from shiqifriend/refactor/jsToTs
+- 9dac95d fix: Fix typescript's type issue
+- 8fb9189 fix: Fix the issue with package.json
+- 7dd3076 fix: Fix the issue with package.json
+- 1f65ab8 Merge branch 'main' into refactor/jsToTs
+- 22cc053 refactor: Revoking modifications to presets
+
 ## 2.4.1 (2023-09-07)
 
 - 42cd576 feat: add vue@2.7

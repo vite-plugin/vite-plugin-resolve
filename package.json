@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-resolve",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "description": "Custom resolve module content.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
