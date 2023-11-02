@@ -5,8 +5,8 @@ for (const [name, versions] of Object.entries(require('./libs.json'))) {
   for (const [version, file] of Object.entries(versions)) {
     /** @type {import('.').LibMeta} */
     const lib = require(`./${file}`);
-    const result = libEsm({ window: lib.name, exports: lib.members });
-    record[version] = `${result.window}\n${result.exports}`;
+    const snippets = libEsm({ window: lib.name, exports: lib.members });
+    record[version] = `${snippets.window}\n${snippets.exports}`;
   }
   exports[name.replaceAll('-', '_')] = record;
 }
