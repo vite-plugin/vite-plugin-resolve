@@ -74,7 +74,7 @@ export default {
     resolve({
       // Let's use lodash as an example
       lodash: () => {
-        const result = libEsm({
+        const snippets = libEsm({
           // lodash iife name
           window: '_',
           // export memebers
@@ -85,7 +85,7 @@ export default {
             'throttle',
           ],
         })
-        return `${result.window}\n${result.exports}`
+        return `${snippets.window}\n${snippets.exports}`
       },
     }),
   ],

@@ -74,7 +74,7 @@ export default {
     resolve({
       // 用 lodash 举个 🌰
       lodash: () => {
-        const result = libEsm({
+        const snippets = libEsm({
           // lodash 全局名称
           window: '_',
           // export memebers
@@ -85,7 +85,7 @@ export default {
             'throttle',
           ],
         })
-        return `${result.window}\n${result.exports}`
+        return `${snippets.window}\n${snippets.exports}`
       },
     }),
   ],
