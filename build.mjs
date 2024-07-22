@@ -25,7 +25,7 @@ const colours = {
 };
 
 const presetsDir = path.join(CJS.__dirname, 'presets');
-const presetRE = /(.+)-(v[\d.]+)\.js$/;
+const presetRE = /(.+)-(v[\d._]+)\.js$/;
 const files = fs.readdirSync(presetsDir).filter(file => presetRE.test(file));
 
 /** @type {Record<string, Record<string, string>>} */
