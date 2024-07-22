@@ -25,7 +25,7 @@ const colours = {
 };
 
 const presetsDir = path.join(CJS.__dirname, 'presets');
-const presetRE = /(.+)-(v[\d.]+)\.js$/;
+const presetRE = /(.+)-(v[\d._]+)\.js$/;
 const files = fs.readdirSync(presetsDir).filter(file => presetRE.test(file));
 
 /** @type {Record<string, Record<string, string>>} */
@@ -76,12 +76,12 @@ for (const file of cjsFiles) {
   const basename = path.basename(filename);
   const destname = filename.replace('.js', '.mjs');
   const members = Object.keys(CJS.require(filename));
-  const result = libEsm({
+  const snippets = libEsm({
     require: `./${basename}`,
     exports: members,
   });
 
-  fs.writeFileSync(destname, `${result.require}\n${result.exports}`);
+  fs.writeFileSync(destname, `${snippets.require}\n${snippets.exports}`);
   console.log(
     colours.cyan('[write]'),
     colours.gary(new Date().toLocaleTimeString()),

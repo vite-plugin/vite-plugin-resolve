@@ -18,7 +18,6 @@ module.exports = {
     'directive',
     'filter',
     'version',
-    'compile',
     'defineComponent',
     'ref',
     'shallowRef',
@@ -72,6 +71,6 @@ module.exports = {
     'onRenderTracked',
     'onRenderTriggered',
     'onErrorCaptured',
-    'effect',
+    '_installedPlugins',
   ],
 };
