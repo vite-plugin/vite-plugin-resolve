@@ -1,3 +1,8 @@
+## 2.5.2 (2024-07-22)
+
+- fa800da fix: export `vue.v2_7`
+- dc286e6 feat(presets): add axios-v0, vue-router-v3
+
 ## 2.5.1 (2023-10-15)
 
 - 07d1aa5 feat: support . version
